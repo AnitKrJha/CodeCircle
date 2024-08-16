@@ -31,14 +31,12 @@ export default function SignInForm() {
         setIsLoading(false);
         return;
       }
-      console.log(response);
       
       // Handle successful sign-in, e.g., redirect to dashboard
       toast.success("Logged in successfully!",{description:"will be redirected to dashboard shortly"});
       router.push('/dashboard')
       router.refresh();
     } catch (error:any) {
-      console.log(error);
       toast.error(error.message);
     } finally {
       setIsLoading(false);

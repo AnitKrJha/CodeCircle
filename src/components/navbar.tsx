@@ -9,7 +9,7 @@ export default async function NavBar() {
     const { data: { user } } = await supabase.auth.getUser();
 
     return (
-        <header className="flex items-center h-14 px-4 md:px-6 w-full">
+        <header className="flex items-center h-14 px-4 md:px-6 w-full fixed top-0 bg-background z-50">
             <Link href="/" className="mr-6 flex items-center" prefetch={false}>
                 <MountainIcon className="h-6 w-6" />
                 <span className="sr-only">Acme Inc</span>
