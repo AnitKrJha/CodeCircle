@@ -1,7 +1,6 @@
 import { createSClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export const prerender = false;
 
 export async function POST(request: NextRequest) {
   const supabase = createSClient();

@@ -3,7 +3,6 @@ import { revalidatePath } from "next/cache";
 import { redirect, useRouter } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
-export const prerender = false;
 
 export async function POST(request: NextRequest) {
   const supabase = createSClient();
