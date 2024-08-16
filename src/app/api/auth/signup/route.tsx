@@ -4,9 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const supabase = createSClient();
-  const body = await request.json();
+  const {email,password,name} = await request.json();
   
-  const { data, error } = await supabase.auth.signUp(body);
+  const { data, error } = await supabase.auth.signUp({
+    email:email,
+    password:password,
+    options:{
+      data:{
+        display_name:name
+      }
+    }
+  });
   
   if (error) {
     return NextResponse.json({ message: error.message }, { status: 400 });
