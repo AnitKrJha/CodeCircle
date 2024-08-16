@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import SignUpForm from "./signupform"
 
 export function SignUpComponent() {
   return (
@@ -16,42 +17,7 @@ export function SignUpComponent() {
               Create a new account by filling out the information below
             </p>
           </div>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="John Doe"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                name="email"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                name="password"
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Sign Up
-            </Button>
-            <Button variant="outline" className="w-full" disabled>
-              Sign Up with Google
-            </Button>
-          </div>
+          <SignUpForm/>
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link href="/signin" className="underline">

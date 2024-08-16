@@ -2,10 +2,11 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { createSClient } from "@/utils/supabase/server"
 import { ModeToggle } from "./ui/modetoggle";
+import SignOutButton from "@/app/api/auth/signup/signout/signoutbutton";
 
 export default async function NavBar() {
     const supabase = createSClient();
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { user } } = await supabase.auth.getUser();
 
     return (
         <header className="flex items-center h-14 px-4 md:px-6 w-full">
@@ -38,18 +39,16 @@ export default async function NavBar() {
             </nav>
             <div className="ml-auto flex items-center space-x-4">
                 {
-                    session ?
+                    user ?
                         <div className="flex gap-2">
                             <Link href='/dashboard'>
                             <Button variant="outline" size="sm">
                                 Dashboard
                             </Button>
                             </Link>
-                            <Link href="/signout">
-                            <Button variant="default" size="sm">
-                                Sign Out
-                            </Button>
-                            </Link>
+                           
+                           <SignOutButton/>
+                           
                         </div> :
                         <div className="flex gap-2">
                         <Link href='/signin'>

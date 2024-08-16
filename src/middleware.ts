@@ -2,20 +2,20 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/utils/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
-  console.log({ middleware: "called" });
   const { user, supabaseResponse } = await updateSession(request)
-  console.log({ email: user?.email });
 
   let tryingToLogin:boolean=
   request.nextUrl.pathname.startsWith("/signin") || request.nextUrl.pathname.startsWith("/signup");
-  console.log({user})
   if (user && tryingToLogin) {
-    console.log("dsfdsf");
     let url=request.nextUrl.clone();
     url.pathname="/dashboard";
     return NextResponse.redirect(url)
   }
-
+  if(!user && request.nextUrl.pathname.startsWith("/dashboard")){
+    let url=request.nextUrl.clone();
+    url.pathname="/signin";
+    return NextResponse.redirect(url)
+  }
   return supabaseResponse
 }
 
