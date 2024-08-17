@@ -33,7 +33,7 @@ export default function Dashboard({
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           
           <div
-            className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm"
+            className="h-full border border-dashed shadow-sm"
           >
            {children}
           </div>

@@ -20,9 +20,9 @@ export default function Component() {
                     <Createnewpool/>
                     <div className="flex items-center justify-center">
                         <Button asChild variant={"link"} size={"sm"}>
-                        <Link href="/dashboard"  prefetch={false}>
+                        <Link href="/dashboard/my-pools"  prefetch={false}>
 
-                            <ArrowLeftSquare size={16}/> Back to Dashboard
+                            <ArrowLeftSquare size={16} className="mr-2"/> Back to Your Pools
                         </Link>
                         </Button>
                     </div>
