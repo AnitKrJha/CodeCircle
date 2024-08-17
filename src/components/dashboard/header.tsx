@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { Package2, Bell, Home, Pocket, Bug, Settings, Eye, CircleUser, Menu } from "lucide-react";
 import Link from "next/link";
