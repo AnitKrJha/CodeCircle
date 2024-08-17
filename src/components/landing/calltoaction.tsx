@@ -10,7 +10,9 @@ export default function CallToActionSection() {
             Join Peercode and Level Up Your Coding
           </h2>
           <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-            Connect with friends, share coding challenges, and learn from diverse solutions. Get started with Peercode today and enhance your coding skills through collaboration.
+            Connect with friends, share coding challenges, and learn from
+            diverse solutions. Get started with Peercode today and enhance your
+            coding skills through collaboration.
           </p>
         </div>
         <div className="mt-8 flex">
