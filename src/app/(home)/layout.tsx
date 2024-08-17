@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import NavBar from "@/components/navbar";
 import { ThemeProvider } from "@/components/themeprovider";
 import { Toaster } from "@/components/ui/sonner";
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
 
-      <body className={`${inter.className} pt-16`}>
+      <body className={`${inter.className}`}>
       <ThemeProvider attribute="class" defaultTheme="system" disableTransitionOnChange>
         
         <NavBar/>

@@ -9,9 +9,11 @@ export default async function NavBar() {
     const { data: { user } } = await supabase.auth.getUser();
 
     return (
-        <header className="flex items-center h-14 px-4 md:px-6 w-full fixed top-0 bg-background z-50">
+        <div className="w-full bg-background">
+
+        <header className="container mx-auto flex items-center h-14 px-4 md:px-6  sticky top-0">
             <Link href="/" className="mr-6 flex items-center" prefetch={false}>
-                <MountainIcon className="h-6 w-6" />
+                <MountainIcon className="h-6 w-6" />    
                 <span className="sr-only">Acme Inc</span>
             </Link>
             <nav className="flex-1 hidden md:flex justify-center">
@@ -19,14 +21,14 @@ export default async function NavBar() {
                     href="#"
                     className="mx-2.5 inline-flex items-center rounded-md text-sm font-medium [&:hover]:bg-gray-100 [&:hover]:text-gray-900 transition-colors"
                     prefetch={false}
-                >
+                    >
                     Features
                 </Link>
                 <Link
                     href="#"
                     className="mx-2.5 inline-flex items-center rounded-md text-sm font-medium [&:hover]:bg-gray-100 [&:hover]:text-gray-900 transition-colors"
                     prefetch={false}
-                >
+                    >
                     Pricing
                 </Link>
                 <Link
@@ -66,6 +68,7 @@ export default async function NavBar() {
                 <ModeToggle/>
             </div>
         </header>
+</div>
     )
 }
 

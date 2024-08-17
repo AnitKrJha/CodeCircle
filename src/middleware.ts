@@ -4,18 +4,23 @@ import { updateSession } from '@/utils/supabase/middleware'
 export async function middleware(request: NextRequest) {
   const { user, supabaseResponse } = await updateSession(request)
 
-  let tryingToLogin:boolean=
-  request.nextUrl.pathname.startsWith("/signin") || request.nextUrl.pathname.startsWith("/signup");
-  if (user && tryingToLogin) {
+  let pathname=request.nextUrl.pathname
+
+  let tryingToLogin_or_goingtodashboard:boolean=
+  pathname.startsWith("/signin") || pathname.startsWith("/signup")||pathname.startsWith("/login")||pathname==="/dashboard";
+
+  if (user && tryingToLogin_or_goingtodashboard) {
     let url=request.nextUrl.clone();
-    url.pathname="/dashboard";
+    url.pathname="/dashboard/overview";
     return NextResponse.redirect(url)
   }
-  if(!user && request.nextUrl.pathname.startsWith("/dashboard")){
+
+  if(!user && pathname.startsWith("/dashboard")){
     let url=request.nextUrl.clone();
     url.pathname="/signin";
     return NextResponse.redirect(url)
   }
+
   return supabaseResponse
 }
 
