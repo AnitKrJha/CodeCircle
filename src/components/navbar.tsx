@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { createSClient } from "@/utils/supabase/server";
+import { createSClient } from "@/lib/supabase/server";
 import { ModeToggle } from "./ui/modetoggle";
 import SignOutButton from "@/app/api/auth/signup/signout/signoutbutton";
 

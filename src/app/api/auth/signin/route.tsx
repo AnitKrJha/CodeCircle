@@ -1,4 +1,4 @@
-import { createSClient } from "@/utils/supabase/server";
+import { createSClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect, useRouter } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
