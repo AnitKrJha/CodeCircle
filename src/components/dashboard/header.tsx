@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "../ui/sheet";
 import SignOutButton from "@/app/api/auth/signup/signout/signoutbutton";
+import { ModeToggle } from '../ui/modetoggle';
 
 interface SidebarLinkProps {
   href: string;
@@ -95,6 +96,7 @@ export default function DashboardHeader() {
           <DropdownMenuItem asChild className="block mx-auto"><div><SignOutButton/></div></DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      <ModeToggle/>
     </header>
   );
 }
