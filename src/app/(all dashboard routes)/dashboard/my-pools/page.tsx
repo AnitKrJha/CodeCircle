@@ -55,9 +55,9 @@ async function getAllMyPools() {
     }
     
     const { data, error } = await supabase
-      .from("ProblemPools")
-      .select("*,PoolMembers(*),users!PoolMembers(*)")
-      .eq("PoolMembers.user_id", user!.id);
+      .from("PoolMembers")
+      .select("ProblemPools(*),users(*)")
+      .eq("user_id", user!.id);
     console.log(data);
     console.log(data?.at(0)?.users);
     
@@ -72,10 +72,10 @@ async function getAllMyPools() {
     let problemPoolList: PoolCardProps[] = [];
     for (let x of data) {
       let oneProblemPool: PoolCardProps = {
-        author: x.created_by === user?.id,
-        id: x.pool_id,
-        desc: x.pool_desc,
-        name: x.pool_name,
+        author: x.ProblemPools?.created_by === user?.id,
+        id: x.ProblemPools!.pool_id,
+        desc: x.ProblemPools!.pool_desc,
+        name: x.ProblemPools!.pool_name,
       };
       problemPoolList.push(oneProblemPool);
     }
