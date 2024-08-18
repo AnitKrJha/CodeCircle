@@ -40,6 +40,13 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "PoolMembers_user_id_fkey1"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       ProblemPools: {
@@ -52,14 +59,14 @@ export type Database = {
         }
         Insert: {
           created_at?: string
-          created_by: string 
+          created_by?: string
           pool_desc?: string | null
           pool_id?: string
-          pool_name: string
+          pool_name?: string
         }
         Update: {
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           pool_desc?: string | null
           pool_id?: string
           pool_name?: string
@@ -71,6 +78,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ProblemPools_created_by_fkey1"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -108,6 +122,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "Problems_created_by_fkey1"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+          {
             foreignKeyName: "Problems_pool_id_fkey"
             columns: ["pool_id"]
             isOneToOne: false
@@ -119,21 +140,21 @@ export type Database = {
       Solutions: {
         Row: {
           created_at: string
-          created_by: string | null
+          created_by: string
           problem_id: string | null
           solution: string
           solution_id: string
         }
         Insert: {
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           problem_id?: string | null
           solution?: string
           solution_id?: string
         }
         Update: {
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           problem_id?: string | null
           solution?: string
           solution_id?: string
@@ -147,11 +168,47 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "Solutions_created_by_fkey1"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["user_id"]
+          },
+          {
             foreignKeyName: "Solutions_problem_id_fkey"
             columns: ["problem_id"]
             isOneToOne: false
             referencedRelation: "Problems"
             referencedColumns: ["problem_id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string
+          email: string
+          user_id: string
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          user_id?: string
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          user_id?: string
+          username?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
         ]
       }
