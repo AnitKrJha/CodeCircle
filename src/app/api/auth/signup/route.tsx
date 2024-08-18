@@ -17,9 +17,9 @@ export async function POST(request: NextRequest) {
   });
   
   if (error) {
-    return NextResponse.json({ message: error.message }, { status: 400 });
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 
-  return NextResponse.json({message:"Login Succesfully"})
+  return NextResponse.json({error:"Login Succesfully"})
 
 }
