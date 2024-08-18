@@ -6,18 +6,17 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 
 export type PoolCardProps = {
-    id:string
-    name: string;
-    desc: string;
-    author:boolean;
+  id: string
+  name: string;
+  desc: string | null;
+  author: boolean;
 };
 
-export default function PoolCard({ name, desc,author,id }: PoolCardProps) {
+export default function PoolCard({ name, desc, author, id }: PoolCardProps) {
 
-    const imageurl=`https://og.anit.dev/og?title=${name}&type=pool}`
-    const members=7
-    return (
-        <Card className="w-full max-w-xs flex flex-col">
+  const imageurl = `https://og.anit.dev/og?title=${name}&type=pool}`
+  return (
+    <Card className="w-full max-w-xs flex flex-col">
       <div className="relative">
         <Image
           src={imageurl}
@@ -26,8 +25,8 @@ export default function PoolCard({ name, desc,author,id }: PoolCardProps) {
           height={100}
           className="rounded-t-lg object-cover w-full aspect-video"
         />
-        <Badge variant={"secondary"} className="absolute top-1 left-1">
-          New
+              <Badge variant={"secondary"} className="absolute top-1 left-0">
+          Pool
         </Badge>
       </div>
       <CardContent className="p-2 space-y-3 flex flex-col flex-grow">
@@ -38,15 +37,19 @@ export default function PoolCard({ name, desc,author,id }: PoolCardProps) {
         <div className="flex items-end justify-between">
           <Button asChild size={"sm"}>
             <Link href={`/pools/${id}`}>
-            Explore <TelescopeIcon className="h-4 w-4 ml-2"/>
+              Explore <TelescopeIcon className="h-4 w-4 ml-2" />
             </Link>
           </Button>
           <div className="flex items-end gap-2 text-primary">
-            <UserCheck2Icon className="w-4 h-4 text-foreground" />
-            <span className="text-xs">{members} members</span>
+            {author && (
+              <>
+                <UserCheck2Icon className="w-4 h-4 text-success" />
+                <span className="text-xs font-semibold">You are the owner</span>
+              </>
+            )}
           </div>
         </div>
       </CardContent>
     </Card>
-    );
+  );
 }
