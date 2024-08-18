@@ -27,7 +27,7 @@ export default function SignUpForm() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(errorData.message || "Something went wrong");
+        toast.error(errorData.error || "Something went wrong");
         setIsLoading(false);
         return;
       }

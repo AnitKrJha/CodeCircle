@@ -19,7 +19,7 @@ export default function SignOutButton() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(errorData.message + "fdsf" || "Failed to sign out. Please try again.");
+        toast.error(errorData.error + "fdsf" || "Failed to sign out. Please try again.");
         setIsLoading(false);
         return;
       }

@@ -16,5 +16,5 @@ export async function POST(req: NextRequest) {
 
  const url= req.nextUrl.clone();
  url.pathname="/signin"
-  return NextResponse.json({message:"Sign Out Succesfully"})
+  return NextResponse.json({error:"Sign Out Succesfully"})
 }
