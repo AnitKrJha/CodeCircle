@@ -11,8 +11,8 @@ export default async function NavBar() {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="w-full bg-background">
-      <header className="container mx-auto flex items-center h-14 px-4 md:px-6  sticky top-0">
+    <div className="w-full bg-background sticky top-0">
+      <header className="container mx-auto flex items-center h-14 px-4 md:px-6   top-0">
         <Link href="/" className="mr-6 flex items-center" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="sr-only">Acme Inc</span>

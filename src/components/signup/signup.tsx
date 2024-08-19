@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import SignUpForm from "./signupform"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import SignUpForm from "./signupform";
 
 export function SignUpComponent() {
   return (
@@ -17,7 +17,7 @@ export function SignUpComponent() {
               Create a new account by filling out the information below
             </p>
           </div>
-          <SignUpForm/>
+          <SignUpForm />
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <Link href="/signin" className="underline">
@@ -27,10 +27,8 @@ export function SignUpComponent() {
         </div>
       </div>
       <div className="hidden bg-muted lg:block">
-        <div
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale bg-gradient-to-tr from-orange-200 to-black"
-        />
+        <div className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale bg-gradient-to-tr from-orange-200 to-black" />
       </div>
     </div>
-  )
+  );
 }

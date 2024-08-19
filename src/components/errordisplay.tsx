@@ -1,13 +1,12 @@
+import { AlertTriangle } from "lucide-react";
 
-import { AlertTriangle } from "lucide-react"
+type ErrorComponentProps = {
+  message: string;
+};
 
-type ErrorComponentProps={
-    message:string
-}
-
-export default function ErrorComponent(props:ErrorComponentProps) {
-    return (
-      <div className="flex min-h-dvh flex-col items-center justify-center  px-4 py-12 bg-background">
+export default function ErrorComponent(props: ErrorComponentProps) {
+  return (
+    <div className="flex min-h-dvh flex-col items-center justify-center  px-4 py-12 bg-background">
       <div className="mx-auto w-full max-w-md space-y-4">
         <div className="rounded-lg bg-card p-4 shadow-lg ">
           <div className="space-y-4">
@@ -16,9 +15,7 @@ export default function ErrorComponent(props:ErrorComponentProps) {
             </div>
             <div className="space-y-2 text-center">
               <h1 className="text-lg font-bold">There's been an error</h1>
-              <p className="text-red-500 text-sm ">
-                {props.message}
-              </p>
+              <p className="text-red-500 text-sm ">{props.message}</p>
             </div>
           </div>
         </div>
@@ -27,5 +24,5 @@ export default function ErrorComponent(props:ErrorComponentProps) {
         </p>
       </div>
     </div>
-    )
-  }
+  );
+}

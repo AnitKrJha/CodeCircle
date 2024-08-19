@@ -1,20 +1,26 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"; // Adjust the import path based on your project structure
-import { Grid, LinkIcon, LucideIcon, StarIcon, TelescopeIcon, UserCheck2Icon } from "lucide-react"; // Adjust the import path based on your setup
+import {
+  Grid,
+  LinkIcon,
+  LucideIcon,
+  StarIcon,
+  TelescopeIcon,
+  UserCheck2Icon,
+} from "lucide-react"; // Adjust the import path based on your setup
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 
 export type PoolCardProps = {
-  id: string
+  id: string;
   name: string;
   desc: string | null;
   author: boolean;
 };
 
 export default function PoolCard({ name, desc, author, id }: PoolCardProps) {
-
-  const imageurl = `https://og.anit.dev/og?title=${name}&type=pool}`
+  const imageurl = `https://og.anit.dev/og?title=${name}&type=pool}`;
   return (
     <Card className="w-full max-w-xs flex flex-col">
       <div className="relative">
@@ -25,7 +31,7 @@ export default function PoolCard({ name, desc, author, id }: PoolCardProps) {
           height={100}
           className="rounded-t-lg object-cover w-full aspect-video"
         />
-              <Badge variant={"secondary"} className="absolute top-1 left-0">
+        <Badge variant={"secondary"} className="absolute top-1 left-0">
           Pool
         </Badge>
       </div>

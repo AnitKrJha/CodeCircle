@@ -1,13 +1,30 @@
-"use client"
-import React from 'react';
-import { Package2, Bell, Home, Pocket, Bug, Settings, Eye, CircleUser, Menu } from "lucide-react";
+"use client";
+import React from "react";
+import {
+  Package2,
+  Bell,
+  Home,
+  Pocket,
+  Bug,
+  Settings,
+  Eye,
+  CircleUser,
+  Menu,
+} from "lucide-react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "../ui/sheet";
 import SignOutButton from "@/app/api/auth/signup/signout/signoutbutton";
-import { ModeToggle } from '../ui/modetoggle';
+import { ModeToggle } from "../ui/modetoggle";
 
 interface SidebarLinkProps {
   href: string;
@@ -15,23 +32,26 @@ interface SidebarLinkProps {
   children: React.ReactNode;
 }
 
-const SidebarLink: React.FC<SidebarLinkProps> = ({ href, icon: Icon, children }) => {
+const SidebarLink: React.FC<SidebarLinkProps> = ({
+  href,
+  icon: Icon,
+  children,
+}) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
   return (
     <SheetClose asChild>
-
-    <Link
-      href={href}
-      className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ${
-        isActive ? 'bg-muted text-foreground' : 'text-muted-foreground'
-      }`}
+      <Link
+        href={href}
+        className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ${
+          isActive ? "bg-muted text-foreground" : "text-muted-foreground"
+        }`}
       >
-      <Icon className="h-5 w-5" />
-      {children}
-    </Link>
-      </SheetClose>
+        <Icon className="h-5 w-5" />
+        {children}
+      </Link>
+    </SheetClose>
   );
 };
 
@@ -40,16 +60,12 @@ export default function DashboardHeader() {
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
       <Sheet>
         <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            size="icon"
-            className="shrink-0 md:hidden"
-          >
+          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <Menu className="h-5 w-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        
+
         <SheetContent side="left" className="flex flex-col">
           <nav className="grid gap-2 text-lg font-medium">
             <Link
@@ -72,9 +88,7 @@ export default function DashboardHeader() {
               Overview
             </SidebarLink>
           </nav>
-          <div className="mt-auto">
-            {/* Footer content if needed */}
-          </div>
+          <div className="mt-auto">{/* Footer content if needed */}</div>
         </SheetContent>
       </Sheet>
       <div className="w-full flex-1">
@@ -93,10 +107,14 @@ export default function DashboardHeader() {
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem asChild className="block mx-auto"><div><SignOutButton/></div></DropdownMenuItem>
+          <DropdownMenuItem asChild className="block mx-auto">
+            <div>
+              <SignOutButton />
+            </div>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <ModeToggle/>
+      <ModeToggle />
     </header>
   );
 }

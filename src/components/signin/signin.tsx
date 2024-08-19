@@ -1,10 +1,10 @@
-import Image from "next/image"
-import Link from "next/link"
+import Image from "next/image";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import SignInForm from "./signinform"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import SignInForm from "./signinform";
 
 export function LoginComponent() {
   return (
@@ -17,7 +17,7 @@ export function LoginComponent() {
               Enter your email below to login to your account
             </p>
           </div>
-          <SignInForm/>
+          <SignInForm />
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <Link href="/signup" className="underline">
@@ -27,10 +27,8 @@ export function LoginComponent() {
         </div>
       </div>
       <div className="hidden bg-muted lg:block">
-        <div
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale bg-gradient-to-tr from-orange-200 to-black"
-        />
+        <div className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale bg-gradient-to-tr from-orange-200 to-black" />
       </div>
     </div>
-  )
+  );
 }
