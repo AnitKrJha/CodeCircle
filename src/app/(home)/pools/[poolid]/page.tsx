@@ -1,14 +1,32 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { CalendarIcon, UserIcon } from "lucide-react"
+import { CalendarIcon, Clock, EyeIcon, FilePenIcon, TrashIcon, User, UserIcon } from "lucide-react"
 import ErrorComponent from "@/components/errordisplay"
 import { createSClient } from "@/lib/supabase/server"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import ProblemCard from "@/components/problems/problemcard"
+import { ProblemList } from "@/components/problems/problemcardlist"
+import JoinPoolButton from "@/components/pools/joinpoolbutton"
+import { MembersList } from "@/components/pools/poolMembersList"
 
 function PoolHeader({ title }: { title: string }) {
+  const imageUrl=`https://og.anit.dev/og?title=${title}&type=a`
   return (
-    <header className="bg-primary text-primary-foreground p-6">
-      <h1 className="text-3xl font-bold">{title}</h1>
-    </header>
+    <header className="w-full bg-primary-foreground py-6 md:py-12 lg:py-16">
+        <div className="container px-2 md:px-3">
+          <div className="mx-auto max-w-5xl">
+            <Image
+              src={imageUrl}
+              width="1270"
+              height="300"
+              alt="Event Banner"
+              className="mx-auto aspect-[3/1] overflow-hidden rounded-t-xl object-cover"
+            />
+          </div>
+        </div>
+      </header>
   )
 }
 
@@ -21,29 +39,35 @@ function PoolDetails({ id, name, desc, isAuthor, createdAt, authorName }: {
   authorName: string 
 }) {
   return (
-    <Card className="m-6">
-      <CardHeader>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{desc}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
-          <CalendarIcon className="h-4 w-4" />
-          <span>Created on {new Date(createdAt).toLocaleDateString()}</span>
+    <section className="w-full py-6 md:py-12 lg:py-16">
+        <div className="container px-4 md:px-6">
+          <div className="mx-auto max-w-3xl space-y-6">
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">{name}</h1>
+            <div className="flex items-center gap-4">
+              <Avatar>
+                <AvatarImage src="/placeholder-user.jpg" />
+                <AvatarFallback>{authorName.at(0)}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm font-medium leading-none">{authorName}</p>
+                <p className={`text-sm ${isAuthor ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
+  {isAuthor ? "You are the pool owner" : "You are a pool member"}
+</p>
+
+              </div>
+              <div className="ml-auto flex items-center gap-2 text-muted-foreground">
+                <JoinPoolButton poolId={id}/>
+              </div>
+            </div>
+            <p className="text-muted-foreground">
+              {desc}
+            </p>
+          </div>
         </div>
-        <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
-          <UserIcon className="h-4 w-4" />
-          <span>Created by {authorName}</span>
-        </div>
-        {isAuthor && (
-          <Badge variant="secondary" className="mt-2">
-            You are the author
-          </Badge>
-        )}
-      </CardContent>
-    </Card>
+      </section>
   )
 }
+
 
 export default async function IndividualPoolPage({ params }: { params: { poolid: string } }) {
   const { poolid } = params
@@ -82,6 +106,8 @@ export default async function IndividualPoolPage({ params }: { params: { poolid:
           authorName={pool.users[0].username || "Unknown"}
           createdAt={pool.created_at}
         />
+        <MembersList poolId={poolid}/>
+        <ProblemList/>
       </div>
     )
   } catch (error: any) {
