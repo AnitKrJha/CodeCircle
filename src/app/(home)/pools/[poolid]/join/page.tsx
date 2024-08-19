@@ -1,7 +1,7 @@
-import { Card } from "@/components/ui/card"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import JoinPoolButton from "@/components/pools/joinpoolbutton"
+import { Card } from "@/components/ui/card";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import JoinPoolButton from "@/components/pools/joinpoolbutton";
 
 export default function Component({ params }: { params: { poolid: string } }) {
   return (
@@ -17,12 +17,13 @@ export default function Component({ params }: { params: { poolid: string } }) {
         </div>
       </div>
       <p className="mt-4">
-        Hey there! I'd love for you to join me and the rest of the team for our quarterly meetup. It's a great chance to
-        catch up, share ideas, and connect with everyone. Hope you can make it!
+        Hey there! I'd love for you to join me and the rest of the team for our
+        quarterly meetup. It's a great chance to catch up, share ideas, and
+        connect with everyone. Hope you can make it!
       </p>
       <div className="mt-6 flex justify-end">
-        <JoinPoolButton poolId={params.poolid}/>
+        <JoinPoolButton poolId={params.poolid} />
       </div>
     </Card>
-  )
+  );
 }

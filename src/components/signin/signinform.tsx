@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { Label } from "../ui/label";
@@ -12,7 +12,7 @@ export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router=useRouter();
+  const router = useRouter();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
@@ -31,12 +31,14 @@ export default function SignInForm() {
         setIsLoading(false);
         return;
       }
-      
+
       // Handle successful sign-in, e.g., redirect to dashboard
-      toast.success("Logged in successfully!",{description:"will be redirected to dashboard shortly"});
-      router.push('/dashboard')
+      toast.success("Logged in successfully!", {
+        description: "will be redirected to dashboard shortly",
+      });
+      router.push("/dashboard");
       router.refresh();
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error(error.message);
     } finally {
       setIsLoading(false);

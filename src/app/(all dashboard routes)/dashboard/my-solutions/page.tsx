@@ -1,3 +1,3 @@
-export default function Mysolutionspage(){
-    return <>Solutions idhar aaenge</>
+export default function Mysolutionspage() {
+  return <>Solutions idhar aaenge</>;
 }

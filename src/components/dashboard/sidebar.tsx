@@ -1,11 +1,29 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { Bell, Home, LineChart, Package, Package2, ShoppingCart, Users, Pocket, Bug, Settings, Eye } from "lucide-react";
-import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
+import React from "react";
+import {
+  Bell,
+  Home,
+  LineChart,
+  Package,
+  Package2,
+  ShoppingCart,
+  Users,
+  Pocket,
+  Bug,
+  Settings,
+  Eye,
+} from "lucide-react";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { Button } from "../ui/button";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 interface SidebarLinkProps {
   href: string;
@@ -13,7 +31,11 @@ interface SidebarLinkProps {
   children: React.ReactNode;
 }
 
-const SidebarLink: React.FC<SidebarLinkProps> = ({ href, icon: Icon, children }) => {
+const SidebarLink: React.FC<SidebarLinkProps> = ({
+  href,
+  icon: Icon,
+  children,
+}) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
@@ -21,7 +43,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ href, icon: Icon, children })
     <Link
       href={href}
       className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-all hover:text-primary ${
-        isActive ? 'bg-muted text-primary' : 'text-muted-foreground'
+        isActive ? "bg-muted text-primary" : "text-muted-foreground"
       }`}
     >
       <Icon className="h-4 w-4" />
@@ -60,10 +82,8 @@ export default function Sidebar() {
             </SidebarLink>
           </nav>
         </div>
-        <div className="mt-auto p-4">
-          {/* Footer content if needed */}
-        </div>
+        <div className="mt-auto p-4">{/* Footer content if needed */}</div>
       </div>
     </div>
-  )
+  );
 }

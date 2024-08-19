@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -11,7 +11,7 @@ export default function SignUpForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router=useRouter();
+  const router = useRouter();
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
@@ -38,7 +38,7 @@ export default function SignUpForm() {
       toast.error("Failed to create an account. Please try again.");
     } finally {
       setIsLoading(false);
-      router.push('/dashboard')
+      router.push("/dashboard");
       router.refresh();
     }
   }

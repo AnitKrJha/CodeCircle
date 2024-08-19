@@ -42,29 +42,32 @@ const poolCards = [
     name: "API Integration",
     desc: "Solve challenges related to making API calls and handling responses.",
     author: false,
-  }
+  },
 ];
 
 async function getAllMyPools() {
   const supabase = createSClient();
-  
+
   try {
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
     if (authError) {
-      throw new Error('Authentication failed. Please try again.');
+      throw new Error("Authentication failed. Please try again.");
     }
-    
+
     const { data, error } = await supabase
       .from("PoolMembers")
       .select("ProblemPools(*),users(*)")
       .eq("user_id", user!.id);
     console.log(data);
     console.log(data?.at(0)?.users);
-    
+
     if (error) {
-      throw new Error('Failed to fetch problem pools. Please try again later.');
+      throw new Error("Failed to fetch problem pools. Please try again later.");
     }
-    
+
     if (!data || data.length === 0) {
       return [];
     }
@@ -80,9 +83,8 @@ async function getAllMyPools() {
       problemPoolList.push(oneProblemPool);
     }
     return problemPoolList;
-
   } catch (error: any) {
-    console.error('Error in getAllMyPools:', error.message);
+    console.error("Error in getAllMyPools:", error.message);
     throw error; // Re-throw the error to handle it in the calling function
   }
 }
@@ -90,14 +92,19 @@ async function getAllMyPools() {
 export default async function MypoolsPage() {
   try {
     const problemPools = await getAllMyPools();
-    
+
     if (problemPools.length === 0) {
-      return <EmptyComponent message="You are not a member of any pools."  type="pool"/>;
+      return (
+        <EmptyComponent
+          message="You are not a member of any pools."
+          type="pool"
+        />
+      );
     }
-    
+
     return (
       <>
-        <PoolHeader />
+        <PoolHeader type="Pools" />
         <PoolCardList pools={problemPools} />
       </>
     );

@@ -1,35 +1,44 @@
-import { NextResponse } from 'next/server'
-import { createSClient} from '@/lib/supabase/server'
-import { cookies } from 'next/headers'
+import { NextResponse } from "next/server";
+import { createSClient } from "@/lib/supabase/server";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
-    const supabase = createSClient();
-    
-    // Check if user is authenticated
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
-    
-    if (authError || !user) {
-        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
-    }
+  const supabase = createSClient();
 
-    // Get poolId from request body
-    const { poolId } = await request.json()
+  // Check if user is authenticated
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
 
-    if (!poolId) {
-        return NextResponse.json({ message: 'Pool ID is required' }, { status: 400 })
-    }
+  if (authError || !user) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
 
-    // Insert into PoolMembers table
-    const { error: insertError } = await supabase
-        .from('PoolMembers')
-        .insert({ pool_id: poolId, user_id: user.id })
+  // Get poolId from request body
+  const { poolId } = await request.json();
 
-    if (insertError) {
-        console.error('Error inserting into PoolMembers:', insertError)
-        if(insertError.code==="23505")
-            return NextResponse.json({ message: "You are already a member of the pool"}, { status: 500 })
-        return NextResponse.json({ message: insertError.message }, { status: 500 })
-    }
+  if (!poolId) {
+    return NextResponse.json(
+      { message: "Pool ID is required" },
+      { status: 400 },
+    );
+  }
 
-    return NextResponse.json({ message: 'Successfully joined pool' })
+  // Insert into PoolMembers table
+  const { error: insertError } = await supabase
+    .from("PoolMembers")
+    .insert({ pool_id: poolId, user_id: user.id });
+
+  if (insertError) {
+    console.error("Error inserting into PoolMembers:", insertError);
+    if (insertError.code === "23505")
+      return NextResponse.json(
+        { message: "You are already a member of the pool" },
+        { status: 500 },
+      );
+    return NextResponse.json({ message: insertError.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ message: "Successfully joined pool" });
 }
