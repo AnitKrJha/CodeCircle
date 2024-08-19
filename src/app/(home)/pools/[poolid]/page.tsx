@@ -7,9 +7,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import ProblemCard from "@/components/problems/problemcard"
-import { ProblemList } from "@/components/problems/problemcardlist"
 import JoinPoolButton from "@/components/pools/joinpoolbutton"
 import { MembersList } from "@/components/pools/poolMembersList"
+import ProblemList from "@/components/problems/problemcardlist"
 
 function PoolHeader({ title }: { title: string }) {
   const imageUrl=`https://og.anit.dev/og?title=${title}&type=a`
@@ -107,7 +107,7 @@ export default async function IndividualPoolPage({ params }: { params: { poolid:
           createdAt={pool.created_at}
         />
         <MembersList poolId={poolid}/>
-        <ProblemList/>
+        <ProblemList poolId={poolid}/>
       </div>
     )
   } catch (error: any) {
