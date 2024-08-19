@@ -104,8 +104,10 @@ export default async function MyProblemsPage() {
     if (problemPools.length === 0) {
       return (
         <EmptyComponent
-          message="You are not a member of any pools."
-          type="pool"
+
+          message="You did not create a Problem Yet"
+          type="problem"
+
         />
       );
     }

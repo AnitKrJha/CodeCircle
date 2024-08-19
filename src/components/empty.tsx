@@ -19,9 +19,20 @@ export default function EmptyComponent({
             : "creating a problem"}
         </h1>
         <p className="text-lg text-gray-500 dark:text-gray-400">{message}</p>
-        <Button asChild size="sm">
-          <Link href={type === "pool" ? "/pools/create" : "#"}>Add {type}</Link>
-        </Button>
+
+        {type === "pool" ? (
+          <Button asChild size="sm">
+            <Link href="/pools/create">Add {type}</Link>
+          </Button>
+        ) : (
+          <>
+            <div>Go to one of your pools to create problems</div>
+            <Button asChild size="sm">
+              <Link href="/dashboard/my-pools">Go To My Pools</Link>
+            </Button>
+          </>
+        )}
+
       </div>
     </div>
   );
