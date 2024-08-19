@@ -1,3 +1,4 @@
+
 import { AlertCircle } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
@@ -18,6 +19,7 @@ export default function ErrorComponent({ message }: { message: string }) {
               <p className="text-sm font-mono text-foreground break-words">
                 {message}
               </p>
+
             </div>
           </div>
         </CardContent>

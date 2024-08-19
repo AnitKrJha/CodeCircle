@@ -19,6 +19,7 @@ export default function EmptyComponent({
             : "creating a problem"}
         </h1>
         <p className="text-lg text-gray-500 dark:text-gray-400">{message}</p>
+
         {type === "pool" ? (
           <Button asChild size="sm">
             <Link href="/pools/create">Add {type}</Link>
@@ -31,6 +32,7 @@ export default function EmptyComponent({
             </Button>
           </>
         )}
+
       </div>
     </div>
   );

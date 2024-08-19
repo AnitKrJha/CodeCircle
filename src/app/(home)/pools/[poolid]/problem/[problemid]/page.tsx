@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardHeader,
@@ -141,4 +142,5 @@ export default async function IndividualProblemPage({
     console.error("Error in IndividualProblemPage:", error.message);
     return <ErrorComponent message={error.message} />;
   }
+
 }
