@@ -11,6 +11,7 @@ import PreviousSolutions from "@/components/solutions/solutionlist";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 
+
 function PreviousSolutionsss() {
   const mockSolutions = [
     { id: 1, user: "Alice", language: "Python", submittedAt: "2024-03-15" },
