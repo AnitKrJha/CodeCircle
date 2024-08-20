@@ -1,95 +1,18 @@
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  CalendarIcon,
-  Clock,
-  EyeIcon,
-  FilePenIcon,
-  TrashIcon,
-  User,
-  UserIcon,
-} from "lucide-react";
+import Image from "next/image";
 import ErrorComponent from "@/components/errordisplay";
 import { createSClient } from "@/lib/supabase/server";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import ProblemCard from "@/components/problems/problemcard";
 import JoinPoolButton from "@/components/pools/joinpoolbutton";
-import { MembersList } from "@/components/pools/poolMembersList";
 import ProblemList from "@/components/problems/problemcardlist";
-
-function PoolHeader({ title }: { title: string }) {
-  const imageUrl = `https://og.anit.dev/og?title=${title}&type=a`;
-  return (
-    <header className="w-full bg-primary-foreground py-6 md:py-12 lg:py-16">
-      <div className="container px-2 md:px-3">
-        <div className="mx-auto max-w-5xl">
-          <Image
-            src={imageUrl}
-            width="1270"
-            height="300"
-            alt="Event Banner"
-            className="mx-auto aspect-[3/1] overflow-hidden rounded-t-xl object-cover"
-          />
-        </div>
-      </div>
-    </header>
-  );
-}
-
-function PoolDetails({
-  id,
-  name,
-  desc,
-  isAuthor,
-  createdAt,
-  authorName,
-}: {
-  id: string;
-  name: string;
-  desc: string;
-  isAuthor: boolean;
-  createdAt: string;
-  authorName: string;
-}) {
-  return (
-    <section className="w-full py-6 md:py-12 lg:py-16">
-      <div className="container px-4 md:px-6">
-        <div className="mx-auto max-w-3xl space-y-6">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-            {name}
-          </h1>
-          <div className="flex items-center gap-4">
-            <Avatar>
-              <AvatarImage src="/placeholder-user.jpg" />
-              <AvatarFallback>{authorName.at(0)}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm font-medium leading-none">{authorName}</p>
-              <p
-                className={`text-sm ${isAuthor ? "text-primary font-semibold" : "text-muted-foreground"}`}
-              >
-                {isAuthor ? "You are the pool owner" : "You are a pool member"}
-              </p>
-            </div>
-            <div className="ml-auto flex items-center gap-2 text-muted-foreground">
-              <JoinPoolButton poolId={id} />
-            </div>
-          </div>
-          <p className="text-muted-foreground">{desc}</p>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export default async function IndividualPoolPage({
   params,
@@ -104,39 +27,95 @@ export default async function IndividualPoolPage({
       data: { user },
       error: authError,
     } = await supabase.auth.getUser();
-    if (authError) {
-      throw new Error("Authentication failed. Please try again.");
-    }
+    if (authError) throw new Error("Authentication failed. Please try again.");
 
     const { data: pool, error: poolError } = await supabase
       .from("ProblemPools")
-      .select("*,users!PoolMembers(*)")
+      .select("*, users!PoolMembers(*)")
       .eq("pool_id", poolid)
       .single();
 
-    if (poolError) {
+    if (poolError || !pool)
       throw new Error("Failed to fetch pool details. Please try again later.");
-    }
-
-    if (!pool) {
-      throw new Error("The requested pool does not exist.");
-    }
 
     const isAuthor = pool.created_by === user?.id;
 
     return (
-      <div className="min-h-screen bg-background">
-        <PoolHeader title={pool.pool_name} />
-        <PoolDetails
-          id={pool.pool_id}
-          name={pool.pool_name}
-          desc={pool.pool_desc || "No description available"}
-          isAuthor={isAuthor}
-          authorName={pool.users[0].username || "Unknown"}
-          createdAt={pool.created_at}
-        />
-        <MembersList poolId={poolid} />
-        <ProblemList poolId={poolid} />
+      <div className="w-full">
+        <div className="relative h-[200px] md:h-[300px] overflow-hidden">
+          <Image
+            src={`https://og.anit.dev/og?title=${pool.pool_name}&type=a`}
+            alt="Pool Banner"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+        <div className="container px-4 md:px-6 py-8 md:py-12 grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-8">
+          <h1 className=" md:text-3xl font-bold">{pool.pool_name}</h1>
+          <JoinPoolButton poolId={pool.pool_id} />
+          <div>
+            <div className="flex items-center gap-4">
+              <Avatar>
+                <AvatarImage src="/placeholder-user.jpg" alt="Pool Creator" />
+                <AvatarFallback>
+                  {pool.users[0].username?.at(0) || "U"}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <h2 className="text font-semibold text-sm">
+                  {pool.users[0].username || "Unknown"}
+                </h2>
+                <p className="text-muted-foreground text-xs">
+                  {isAuthor ? "Pool Creator" : "Pool Member"}
+                </p>
+              </div>
+            </div>
+            <Separator className="my-3" />
+            <div className="grid gap-3">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Pool Description</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm">
+                    {pool.pool_desc || "No description available"}
+                  </p>
+                </CardContent>
+              </Card>
+
+              <ProblemList poolId={poolid} />
+            </div>
+          </div>
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Pool Members</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-2">
+                  {pool.users.map((member: any) => (
+                    <div key={member.id} className="flex items-center gap-4">
+                      <Avatar>
+                        <AvatarImage src="/placeholder-user.jpg" alt="Member" />
+                        <AvatarFallback>
+                          {member.username?.at(0) || "U"}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <h3 className="text-sm font-semibold">
+                          {member.username}
+                        </h3>
+                        <p className="text-muted-foreground text-xs">
+                          {isAuthor ? "Creator" : "Member"}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       </div>
     );
   } catch (error: any) {
