@@ -34,6 +34,7 @@ export default async function IndividualPoolPage({
       .select("*, users!PoolMembers(*)")
       .eq("pool_id", poolid)
       .single();
+    console.log(pool?.users);
 
     if (poolError || !pool)
       throw new Error("Failed to fetch pool details. Please try again later.");
@@ -62,12 +63,11 @@ export default async function IndividualPoolPage({
                 </AvatarFallback>
               </Avatar>
               <div>
+                <p className="text-muted-foreground text-xs">created by</p>
                 <h2 className="text font-semibold text-sm">
                   {pool.users[0].username || "Unknown"}
                 </h2>
-                <p className="text-muted-foreground text-xs">
-                  {isAuthor ? "Pool Creator" : "Pool Member"}
-                </p>
+                {/* {isAuthor ? "Pool Creator" : "Pool Member"} */}
               </div>
             </div>
             <Separator className="my-3" />
@@ -106,7 +106,9 @@ export default async function IndividualPoolPage({
                           {member.username}
                         </h3>
                         <p className="text-muted-foreground text-xs">
-                          {isAuthor ? "Creator" : "Member"}
+                          {member.user_id === pool.created_by
+                            ? "Creator"
+                            : "Member"}
                         </p>
                       </div>
                     </div>

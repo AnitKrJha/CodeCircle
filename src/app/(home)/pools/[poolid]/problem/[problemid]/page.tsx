@@ -7,8 +7,9 @@ import ErrorComponent from "@/components/errordisplay";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SolutionCodeEditorForm } from "@/components/problems/codeEditorForm.tsx";
+import PreviousSolutions from "@/components/solutions/solutionlist";
 
-function PreviousSolutions() {
+function PreviousSolutionsss() {
   const mockSolutions = [
     { id: 1, user: "Alice", language: "Python", submittedAt: "2024-03-15" },
     { id: 2, user: "Bob", language: "JavaScript", submittedAt: "2024-03-14" },
@@ -118,7 +119,7 @@ export default async function IndividualProblemPage({
                   </div>
                 </div>
               </div>
-              <PreviousSolutions />
+              <PreviousSolutions problemId={problemid} />
             </div>
             <div className="space-y-6">
               <SolutionCodeEditorForm problemId={problemid} />

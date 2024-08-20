@@ -59,14 +59,17 @@ export function SolutionCodeEditorForm({ problemId }: { problemId: string }) {
       }
 
       // Submit solution
-      const { data, error } = await supabase.from("Solutions").insert([
-        {
-          created_by: user.id,
-          solution: code,
-          problem_id: problemId,
-          language: selectedLanguage,
-        },
-      ]);
+      const { data, error } = await supabase
+        .from("Solutions")
+        .insert([
+          {
+            created_by: user.id,
+            solution: code,
+            problem_id: problemId,
+            language: selectedLanguage,
+          },
+        ])
+        .select();
 
       if (error) throw error;
 

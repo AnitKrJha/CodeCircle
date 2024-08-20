@@ -15,6 +15,7 @@ import {
   ArrowRight,
   ArrowRightIcon,
 } from "lucide-react";
+import { ClipboardCopy } from "../copytoclipboard";
 
 export interface ProblemWithPoolNameInterface {
   created_at: string;
@@ -89,6 +90,9 @@ export default function ProblemCard({
             View Problem
           </Link>
         </Button>
+        <ClipboardCopy
+          copyText={`https://peer-code-rho.vercel.app/pools/${problem.pool_id}/problem/${problem.problem_id}`}
+        />
       </CardFooter>
     </Card>
   );

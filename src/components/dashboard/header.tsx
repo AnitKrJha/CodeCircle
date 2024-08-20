@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Package2,
   Bell,
@@ -25,6 +25,8 @@ import {
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "../ui/sheet";
 import SignOutButton from "@/app/api/auth/signup/signout/signoutbutton";
 import { ModeToggle } from "../ui/modetoggle";
+import { createSClient } from "@/lib/supabase/server";
+import { createBClient } from "@/lib/supabase/client";
 
 interface SidebarLinkProps {
   href: string;
@@ -56,6 +58,19 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({
 };
 
 export default function DashboardHeader() {
+  const supabase = createBClient();
+  const [name, setName] = useState<string | null | undefined>();
+  useEffect(() => {
+    async function getName() {
+      const { data, error } = await supabase.auth.getUser();
+      setName(data.user?.user_metadata.display_name);
+    }
+    getName();
+  }, []);
+  console.log(
+    "☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺☺v",
+  );
+
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
       <Sheet>
@@ -98,6 +113,7 @@ export default function DashboardHeader() {
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="icon" className="rounded-full">
             <CircleUser className="h-5 w-5" />
+            <span className="text-xs">{name + ""}</span>
             <span className="sr-only">Toggle user menu</span>
           </Button>
         </DropdownMenuTrigger>

@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { ClipboardCopy } from "../copytoclipboard";
 
 export type PoolCardProps = {
   id: string;
@@ -40,17 +41,20 @@ export default function PoolCard({ name, desc, author, id }: PoolCardProps) {
           <h3 className="font-semibold">{name}</h3>
           <p className="text-sm text-muted-foreground">{desc}</p>
         </div>
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-2">
           <Button asChild size={"sm"}>
             <Link href={`/pools/${id}`}>
               Explore <TelescopeIcon className="h-4 w-4 ml-2" />
             </Link>
           </Button>
+          <ClipboardCopy
+            copyText={`https://peer-code-rho.vercel.app/pools/${id}`}
+          />
           <div className="flex items-end gap-2 text-primary">
             {author && (
               <>
                 <UserCheck2Icon className="w-4 h-4 text-success" />
-                <span className="text-xs font-semibold">You are the owner</span>
+                <span className="text-xs font-semibold">You are owner</span>
               </>
             )}
           </div>
