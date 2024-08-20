@@ -93,6 +93,7 @@ export type Database = {
           created_at: string;
           created_by: string;
           description: string;
+          link: string | null;
           pool_id: string;
           problem_id: string;
           title: string;
@@ -101,6 +102,7 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           description: string;
+          link?: string | null;
           pool_id?: string;
           problem_id?: string;
           title: string;
@@ -109,6 +111,7 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           description?: string;
+          link?: string | null;
           pool_id?: string;
           problem_id?: string;
           title?: string;
@@ -141,6 +144,7 @@ export type Database = {
         Row: {
           created_at: string;
           created_by: string;
+          language: string | null;
           problem_id: string | null;
           solution: string;
           solution_id: string;
@@ -148,6 +152,7 @@ export type Database = {
         Insert: {
           created_at?: string;
           created_by?: string;
+          language?: string | null;
           problem_id?: string | null;
           solution?: string;
           solution_id?: string;
@@ -155,6 +160,7 @@ export type Database = {
         Update: {
           created_at?: string;
           created_by?: string;
+          language?: string | null;
           problem_id?: string | null;
           solution?: string;
           solution_id?: string;

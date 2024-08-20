@@ -104,10 +104,8 @@ export default async function MyProblemsPage() {
     if (problemPools.length === 0) {
       return (
         <EmptyComponent
-
           message="You did not create a Problem Yet"
           type="problem"
-
         />
       );
     }
@@ -115,9 +113,11 @@ export default async function MyProblemsPage() {
     return (
       <>
         <PoolHeader type="Problems" />
-        {problemPools.map((problem) => {
-          return <ProblemCard problem={problem} />;
-        })}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+          {problemPools.map((problem) => {
+            return <ProblemCard problem={problem} />;
+          })}
+        </div>
       </>
     );
   } catch (error: any) {

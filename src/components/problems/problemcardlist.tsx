@@ -24,13 +24,13 @@ export default async function ProblemList({ poolId }: { poolId: string }) {
   }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+    <section className="w-full py-3 md:py-6 lg:py-8 bg-muted">
       <div className="container px-4 md:px-6">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight">Problems</h1>
+          <h1 className="text-lg font-semibold tracking-tight">Problems</h1>
           <CreateProblemButton poolId={poolId} />
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {problems.map((problem) => (
             <ProblemCard
               key={problem.problem_id}

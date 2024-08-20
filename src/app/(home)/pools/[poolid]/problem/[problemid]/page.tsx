@@ -1,81 +1,47 @@
-
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  CalendarIcon,
-  Clock,
-  EyeIcon,
-  FilePenIcon,
-  TrashIcon,
-  User,
-  UserIcon,
-} from "lucide-react";
-import ErrorComponent from "@/components/errordisplay";
-import { createSClient } from "@/lib/supabase/server";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { createSClient } from "@/lib/supabase/server";
+import ErrorComponent from "@/components/errordisplay";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { SolutionCodeEditorForm } from "@/components/problems/codeEditorForm.tsx";
 
-function ProblemHeader({ title }: { title: string }) {
-  const imageUrl = `https://og.anit.dev/og?title=${title}&type=a`;
-  return (
-    <header className="w-full bg-primary-foreground py-6 md:py-12 lg:py-16">
-      <div className="container px-2 md:px-3">
-        <div className="mx-auto max-w-5xl">
-          <Image
-            src={imageUrl}
-            width="1270"
-            height="300"
-            alt="Problem Banner"
-            className="mx-auto aspect-[3/1] overflow-hidden rounded-t-xl object-cover"
-          />
-        </div>
-      </div>
-    </header>
-  );
-}
+function PreviousSolutions() {
+  const mockSolutions = [
+    { id: 1, user: "Alice", language: "Python", submittedAt: "2024-03-15" },
+    { id: 2, user: "Bob", language: "JavaScript", submittedAt: "2024-03-14" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+    { id: 3, user: "Charlie", language: "Java", submittedAt: "2024-03-13" },
+  ];
 
-function ProblemDetails({
-  title,
-  description,
-  createdAt,
-  authorName,
-}: {
-  title: string;
-  description: string;
-  createdAt: string;
-  authorName: string;
-}) {
   return (
-    <section className="w-full py-6 md:py-12 lg:py-16">
-      <div className="container px-4 md:px-6">
-        <div className="mx-auto max-w-3xl space-y-6">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-            {title}
-          </h1>
-          <div className="flex items-center gap-4">
-            <Avatar>
-              <AvatarImage src="/placeholder-user.jpg" />
-              <AvatarFallback>{authorName.at(0)}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm font-medium leading-none">{authorName}</p>
+    <div className="mt-8">
+      <h2 className="text-xl font-semibold mb-4">Previous Solutions</h2>
+      <ScrollArea className="h-96 space-y-4">
+        {mockSolutions.map((solution) => (
+          <Card key={solution.id}>
+            <CardHeader>
+              <CardTitle className="text-sm font-medium">
+                {solution.user}'s solution in {solution.language}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
               <p className="text-sm text-muted-foreground">
-                Created on {new Date(createdAt).toLocaleDateString()}
+                Submitted on {solution.submittedAt}
               </p>
-            </div>
-          </div>
-          <p className="text-muted-foreground">{description}</p>
-        </div>
-      </div>
-    </section>
+            </CardContent>
+          </Card>
+        ))}
+      </ScrollArea>
+    </div>
   );
 }
 
@@ -96,7 +62,6 @@ export default async function IndividualProblemPage({
       throw new Error("Authentication failed. Please try again.");
     }
 
-    // Check if user is a member of the pool
     const { data: membershipData, error: membershipError } = await supabase
       .from("PoolMembers")
       .select("*")
@@ -108,7 +73,6 @@ export default async function IndividualProblemPage({
       throw new Error("You are not a member of the pool the Problem is From.");
     }
 
-    // Fetch problem details
     const { data: problem, error: problemError } = await supabase
       .from("Problems")
       .select("*, users(*)")
@@ -127,20 +91,44 @@ export default async function IndividualProblemPage({
     }
 
     return (
-      <div className="min-h-screen bg-background">
-        <ProblemHeader title={problem.title} />
-        <ProblemDetails
-          title={problem.title}
-          description={problem.description}
-          createdAt={problem.created_at}
-          authorName={problem.users?.username || "Unknown"}
-        />
-        {/* Add more components here for problem-specific content */}
+      <div className="min-h-screen ">
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div className="space-y-6">
+              <div className="rounded-lg shadow-lg p-6">
+                <h1 className="text-3xl font-bold tracking-tight mb-4">
+                  {problem.title}
+                </h1>
+                <p className="mb-6">{problem.description}</p>
+                <div className="flex items-center gap-4">
+                  <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" alt="Author" />
+                    <AvatarFallback>
+                      {problem.users?.username?.at(0) || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-semibold">
+                      {problem.users?.username || "Unknown"}
+                    </p>
+                    <p className="text-sm ">
+                      Posted on{" "}
+                      {new Date(problem.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <PreviousSolutions />
+            </div>
+            <div className="space-y-6">
+              <SolutionCodeEditorForm problemId={problemid} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   } catch (error: any) {
     console.error("Error in IndividualProblemPage:", error.message);
     return <ErrorComponent message={error.message} />;
   }
-
 }
