@@ -9,6 +9,7 @@ import { Loader } from "lucide-react";
 export default function CreatenewProblem({ poolId }: { poolId: string }) {
   const [problemName, setproblemName] = useState("");
   const [problemDesc, setproblemDesc] = useState("");
+  const [link, setLink] = useState("");
   const [loading, setIsLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -21,7 +22,7 @@ export default function CreatenewProblem({ poolId }: { poolId: string }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ problemName, problemDesc, poolId }),
+        body: JSON.stringify({ problemName, problemDesc, poolId, link }),
       });
 
       if (!response.ok) {
@@ -69,11 +70,14 @@ export default function CreatenewProblem({ poolId }: { poolId: string }) {
         />
       </div>
       <div className="space-y-2">
-        <Label htmlFor="tags">Tags</Label>
+        <Label htmlFor="link">Link (optional)</Label>
         <Input
-          id="tags"
+          id="link"
           type="text"
-          placeholder="Enter tags (optional, comma-separated)"
+          name="link"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          placeholder="Enter link (optional, comma-separated)"
         />
       </div>
       <div className="flex items-center justify-between">

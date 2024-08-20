@@ -8,6 +8,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SolutionCodeEditorForm } from "@/components/problems/codeEditorForm.tsx";
 import PreviousSolutions from "@/components/solutions/solutionlist";
+import Link from "next/link";
+import { ExternalLink } from "lucide-react";
+
 
 function PreviousSolutionsss() {
   const mockSolutions = [
@@ -117,6 +120,15 @@ export default async function IndividualProblemPage({
                       {new Date(problem.created_at).toLocaleDateString()}
                     </p>
                   </div>
+                  {problem.link && (
+                    <Button asChild variant={"link"}>
+                      <Link href={problem.link} target="_blank">
+                        {" "}
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        actual problem link
+                      </Link>
+                    </Button>
+                  )}
                 </div>
               </div>
               <PreviousSolutions problemId={problemid} />

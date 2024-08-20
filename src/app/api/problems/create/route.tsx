@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
           title: body.problemName,
           description: body.problemDesc,
           created_by: user.user.id,
+          link: body.link,
           pool_id: body.poolId,
         },
       ])
