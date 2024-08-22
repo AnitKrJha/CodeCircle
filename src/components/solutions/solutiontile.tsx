@@ -40,30 +40,31 @@ export default function SolutionTile({
           Submitted on {new Date(created_at).toLocaleDateString()}
         </p>
       </Card>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <button style={{ display: "none" }}>Open Dialog</button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
-              {user}'s {language} Solution
-            </DialogTitle>
-            <DialogDescription>
-              <div className="mt-4">
-                <SyntaxHighlighter
-                  language={language.toLowerCase()}
-                  style={vscDarkPlus}
-                  className="!m-0 !p-4 !bg-gray-800 min-h-[300px] rounded-lg"
-                >
-                  {solution}
-                </SyntaxHighlighter>
-              </div>
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <div className="sm:max-w-[250px] md:max-w-[450px]">
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <button style={{ display: "none" }}>Open Dialog</button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                {user}'s {language} Solution
+              </DialogTitle>
+              <DialogDescription>
+                <div className="mt-4 max-w-[450px] max h-[450px] overflow-scroll">
+                  <SyntaxHighlighter
+                    language={language.toLowerCase()}
+                    style={vscDarkPlus}
+                    className="!m-0 !p-4 !bg-gray-800 min-h-[300px] rounded-lg"
+                  >
+                    {solution}
+                  </SyntaxHighlighter>
+                </div>
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
     </>
   );
 }
